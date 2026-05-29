@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg fixed-top py-2 nav-bg ">
+    <div class="container-fluid d-flex flex-nowrap align-items-center">
+        <a href="{% url 'patient-dashboard' %}" class="navbar-brand logo {% if request.resolver_match.url_name == 'patient-dashboard' %}active nav-act fw-bold{% else %}text-light{% endif %}">Dashboard</a>
+        <button class="navbar-toggler border-0 shadow-none ms-auto w-auto " type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end nav-bg" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header ">
+                <a href="{% url 'patient-dashboard' %}" class="offcanvas-title {% if request.resolver_match.url_name == 'patient-dashboard' %}active nav-act fw-bold{% endif %} text-light" id="offcanvasNavbarLabel">Dashboard</a>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'P-profile' %}active nav-act fw-bold{% else %}text-light{% endif %}"
+                            href="{% url 'P-profile' %}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'booking-appointment' %}active nav-act fw-bold{% else %}text-light{% endif %}"
+                            href="{% url 'booking-appointment' %}">Booking Appointment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'my-appointments' %}active nav-act fw-bold{% else %}text-light{% endif %}"
+                            href="{% url 'my-appointments' %}">My Appointment</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'logout' %}active nav-act fw-bold{% else %}text-light{% endif %}"
+                            href="{% url 'logout' %}">Logout</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

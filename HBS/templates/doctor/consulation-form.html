@@ -1,0 +1,188 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation Form</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+ <nav class="navbar navbar-expand-lg fixed-top py-2 nav-bg ">
+        <div class="container-fluid d-flex flex-nowrap align-items-center">
+            <a href="{% url 'doctor-dashboard' %}" class="navbar-brand logo {% if request.resolver_match.url_name == 'doctor-dashboard' %}active nav-act fw-bold{% else %}text-light{% endif %}" >Dashboard</a>
+           <button class="navbar-toggler border-0 shadow-none ms-auto w-auto " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end nav-bg" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header ">
+                    <a href="{% url 'doctor-dashboard' %}" class="offcanvas-title {% if request.resolver_match.url_name == 'doctor-dashboard' %}active nav-act fw-bold{% else %}text-light{% endif %}" id="offcanvasNavbarLabel">Dashboard</a>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link mx-lg-2  active nav-act fw-bold text-light" 
+                                href="{% url 'D-profile' %}">Profile</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'view-today-appointment' %}active nav-act fw-bold{% else %}text-light{% endif %}" 
+                                href="{% url 'view-today-appointment' %}">Today Appointment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'upcoming-appointment' %}active nav-act fw-bold{% else %}text-light{% endif %}" 
+                                href="{% url 'upcoming-appointment' %}">Upcoming Appointment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'appointment-histroy' %}active nav-act fw-bold{% else %}text-light{% endif %}" 
+                                href="{% url 'doctor-appointment-histroy' %}">Consulated Histroy</a>
+                        </li>
+                      <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'logout' %}active nav-act fw-bold{% else %}text-light{% endif %}" 
+                                href="{% url 'logout' %}">Logout</a>
+                        </li>
+                         
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="margin-top">
+            <div class="row justify-content-center">
+                <div class="col-xl-7 col-md-10 col-sm-12">
+                    <div class="p-5 card">
+                        <h2 class="text-center fw-bold">Consultation Form</h2>
+
+                        <form method="post" action="{% url 'consulted' data.id  %}">
+                            {% csrf_token %}
+                            <div class="row">
+
+                                <div class="col-xl-6 col-md-6 col-sm-12">
+                                    <div class="flex  gap-5 mt-3">
+                                        <strong>Appointment ID</strong>
+                                        <strong>:</strong>
+                                        <span>{{data.appointment_id}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-md-6 col-sm-12">
+                                    <div class="flex  gap-5 mt-3">
+                                        <strong>Patient</strong>
+                                        <strong>:</strong>
+                                        <span>{{data.patient.admin.first_name}} {{data.patient.admin.last_name}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-md-6 col-sm-12">
+                                    <div class="flex  gap-5 mt-3">
+                                        <strong>Patient ID</strong>
+                                        <strong>:</strong>
+                                        <span>{{data.patient.patient_id}}</span>
+                                    </div>
+                                </div>
+                                 <div class="col-xl-6 col-md-6 col-sm-12">
+                                    <div class="flex  gap-5 mt-3">
+                                        <strong>Doctor</strong>
+                                        <strong>:</strong>
+                                        <span>{{data.Doctor.admin.first_name}} {{data.Doctor.admin.last_name}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-md-6 col-sm-12">
+                                    <div class="flex  gap-5 mt-3">
+                                        <strong>Consultation Date</strong>
+                                        <strong>:</strong>
+                                        <span>{{data.appointment_date}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-md-6 col-sm-12">
+                                    <div class="flex  gap-5 mt-3">
+                                        <strong>Symptoms</strong>
+                                        <strong>:</strong>
+                                        <span>{{data.symptoms}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex flex-column gap-3">
+                                <label for="" class="fw-bold">Diagnosis</label>
+                                <textarea name="diagnosis" id="" rows="4" required></textarea>
+                            </div>
+                            <div class="d-flex flex-column gap-3">
+                                <label for="" class="fw-bold">Prescription</label>
+                                <textarea name="prescription" id="" rows="4" required></textarea>
+                            </div>
+                            <div class="d-flex flex-column gap-3">
+                                <label for="" class="fw-bold">Notes</label>
+                                <textarea name="notes" id="" rows="4" required></textarea>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between mt-4">
+                                <a href="{% url 'view-today-appointment' %}" class="btn btn-primary">Back</a>
+                                <button type="submit" class="btn btn-success ">Consulted</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for message in messages %}
+    <script>
+        alert("{{message}}")
+    </script>
+    {% endfor %}
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Links</h5>
+                <hr>
+                <a href="{% url 'D-profile' %}">Profile</a><br>
+                <a href="{% url 'view-today-appointment' %}">Today Appointment</a><br>
+                <a href="{% url 'upcoming-appointment' %}">Upcoming Appointment</a><br>
+                <a href="{% url 'doctor-appointment-histroy' %}">Consultation Histroy</a><br>
+                <a href="{% url 'logout' %}">Logout</a><br>
+                
+            </div>
+            <div class="col-md-3">
+                <h5>Contact</h5>
+                <hr>
+                <p>123,street,New York,USA</p>
+                <p>+123 444 444</p>
+                <p>+info@example.com
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h5>Openning</h5>
+                <hr>
+                <p>Mon - Sat</p>
+                <p>09.00AM - 07.00PM</p>
+                <p>Sunday</p>
+                <p>Emergency Support</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Follow us</h5>
+                <hr>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <div class="text-center">
+                © 2026 MediCare | All Rights Reserved
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+{% extends 'admin-base.html' %}
+
+{% load static %}
+
+{% block title %}
+Consultation Status
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+    <div class="">
+        <div class="row justify-content-center">
+            <div class="col-xl-12">
+                <h2 class="text-center">Consultation Status</h2>
+
+                <div class="table-container">
+                    <table class=" table table-light table-bordered text-center mt-5 align-middle">
+                        <tr class=" table-dark">
+                            <th>S.No</th>
+                            <th>Appointment ID</th>
+                            <th>Appointment Date</th>
+                            <th>Patient ID</th>
+                            <th>Patient Name</th>
+                            <th>Patient Phone No</th>
+                            <th>Symptoms</th>
+                            <th>Doctor Name</th>
+                            <th>Department</th>
+                            <th>Reason</th>
+                            <th>Consulation Status</th>
+                        </tr>
+
+                        {% for data in datas %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{data.appointment_id}}</td>
+                            <td>{{data.appointment_date}}</td>
+                            <td>{{data.patient.patient_id}}</td>
+                            <td>{{data.patient.admin.first_name}} {{data.patient.admin.last_name}}</td>
+                            <td>{{data.patient.patient_phone}}</td>
+                            <td>{{data.symptoms}}</td>
+
+                            <td>
+
+                                {{ data.doctor_name }}
+
+                            </td>
+
+                            <td>
+                                {% if data.Doctor %}
+                                {{ data.Doctor.department.dep_name }}
+                                {% else %}
+                                No Department
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% with found=False %}
+                                {% for c in consultations %}
+                                {% if c.appointment_id == data.id %}
+                                {{ c.reason }}
+                                {% endif %}
+                                {% empty %}
+                                No Reason
+                                {% endfor %}
+                                {% endwith %}
+                                {% if data.consultation_status == 'pending' %}
+                                No Reason
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if data.consultation_status == 'CONSULATED' %}
+                                <span class="badge fw-bold text-light bg-success">
+                                    {{data.consultation_status}}
+                                </span>
+
+                                {% elif data.consultation_status == 'Not Consulted' %}
+                                <span class="badge fw-bold text-light bg-danger">
+                                    {{data.consultation_status}}
+                                </span>
+
+                                {% else %}
+                                <span class="badge fw-bold text-dark bg-warning">
+                                    {{data.consultation_status}}
+                                </span>
+                                {% endif %}
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+                        <div class="alert alert-warning text-center">
+                            No appointments
+                        </div>
+                        {% endfor %}
+                    </table>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

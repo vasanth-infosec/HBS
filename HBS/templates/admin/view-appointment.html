@@ -1,0 +1,140 @@
+{% extends 'admin-base.html' %}
+{% block title %}
+View Appointments
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+
+    {% if message.tags == 'error' %}
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3 d-flex row align-items-center justify-content-between" role="alert">
+    {% else %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm rounded-3 d-flex row  align-items-center justify-content-between" role="alert">
+    {% endif %}
+
+        <div class="flex-grow-1 text-center">
+            {{ message }}
+        </div>
+
+        <button type="button"
+                class="btn-close ms-1"
+                data-bs-dismiss="alert"
+                aria-label="Close">
+        </button>
+
+    </div>
+
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+    <div class="">
+        <div class="row justify-content-center">
+            <div class="col-xl-10">
+                <h2 class="text-center">Appointments Requests</h2>
+                {% for data in datas %}
+                <div class="query-card my-5 p-4">
+                    <div class="row g-1">
+                        <div class="col-xl-6 col-md-6">
+                            <div class="d-flex gap-3">
+                                <strong>Appointment ID </strong>
+                                <strong>:</strong>
+                                <p>{{data.appointment_id}}</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6">
+                            <div class="d-flex gap-3">
+                                <strong>Patient Name</strong>
+                                <strong>:</strong>
+                                <p>{{data.patient.admin.first_name}} {{data.patient.admin.last_name}}</p>
+                            </div>
+
+                        </div>
+                        <div class="col-xl-6 col-md-6">
+                            <div class="d-flex gap-3">
+                                <strong>Patient ID</strong>
+                                <strong>:</strong>
+                                <p>{{data.patient.patient_id}}</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6">
+                            <div class="d-flex gap-3">
+                                <strong>Gender</strong>
+                                <strong>:</strong>
+                                <p>{{data.patient.patient_gender}}</p>
+                            </div>
+                        </div>
+                         <div class="col-xl-6 col-md-6">
+                            <div class="d-flex gap-3">
+                                <strong>Patient Phone No </strong>
+                                <strong>:</strong>
+                                <p class="text-break">{{data.patient.patient_phone}}</p>
+                            </div>
+                        </div>
+                         <div class="col-xl-6 col-md-6">
+                            <div class="d-flex gap-3">
+                                <strong>Doctor Name </strong>
+                                <strong>:</strong>
+                                <p class="text-break">{{data.Doctor.admin.first_name}} {{data.Doctor.admin.last_name}}</p>
+                            </div>
+                        </div>
+                         <div class="col-xl-6 col-md-6">
+                            <div class="d-flex gap-3">
+                                <strong>Department</strong>
+                                <strong>:</strong>
+                                <p>{{data.department.dep_name}}</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6">
+                            <div class="d-flex gap-3">
+                                <strong>Appointment Date</strong>
+                                <strong>:</strong>
+                                <p>{{data.appointment_date}}</p>
+                            </div>
+                        </div>
+
+ 
+                       
+                        <div class="col-xl-6 col-md-6">
+                            <div class="d-flex gap-3">
+                                <strong>Symptoms</strong>
+                                <strong>:</strong>
+                                <p>{{data.symptoms}}</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6">
+                            <div class="d-flex gap-3">
+                                <strong>Booking Date and Time</strong>
+                                <strong>:</strong>
+                                <p>{{data.created_at}}</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6">
+                            <div class="d-flex gap-3">
+                                <strong>Status</strong>
+                                <strong>:</strong>
+                                <p class="bg-warning badge text-dark fw-bold p-1">{{data.status}}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="{% url 'approve-appointment' data.id %}" class="btn btn-success text-center">Approve</a>
+                            <a href="{% url 'reject-appointment' data.id %}" class="btn btn-danger text-center">Reject</a>
+                        </div>
+
+                    </div>
+
+                </div>
+                 {% empty %}
+                    <div class="alert alert-warning text-center">
+                        No appointment requests
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

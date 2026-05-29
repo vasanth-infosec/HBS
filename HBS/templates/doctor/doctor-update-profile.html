@@ -1,0 +1,267 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+   <nav class="navbar navbar-expand-lg fixed-top py-2 nav-bg ">
+        <div class="container-fluid d-flex flex-nowrap align-items-center">
+            <a href="{% url 'doctor-dashboard' %}" class="navbar-brand logo {% if request.resolver_match.url_name == 'doctor-dashboard' %}active nav-act fw-bold{% else %}text-light{% endif %}" >Dashboard</a>
+           <button class="navbar-toggler border-0 shadow-none ms-auto w-auto " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end nav-bg" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header ">
+                    <a href="{% url 'doctor-dashboard' %}" class="offcanvas-title {% if request.resolver_match.url_name == 'doctor-dashboard' %}active nav-act fw-bold{% else %}text-light{% endif %}" id="offcanvasNavbarLabel">Dashboard</a>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link mx-lg-2  active nav-act fw-bold text-light" 
+                                href="{% url 'D-profile' %}">Profile</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'view-today-appointment' %}active nav-act fw-bold{% else %}text-light{% endif %}" 
+                                href="{% url 'view-today-appointment' %}">Today Appointment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'upcoming-appointment' %}active nav-act fw-bold{% else %}text-light{% endif %}" 
+                                href="{% url 'upcoming-appointment' %}">Upcoming Appointment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'appointment-histroy' %}active nav-act fw-bold{% else %}text-light{% endif %}" 
+                                href="{% url 'doctor-appointment-histroy' %}">Consulated Histroy</a>
+                        </li>
+                      <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'logout' %}active nav-act fw-bold{% else %}text-light{% endif %}" 
+                                href="{% url 'logout' %}">Logout</a>
+                        </li>
+                         
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="margin-top">
+
+            <div class="row justify-content-center">
+                <div class="col-xl-8 ">
+                    <div class="register px-5 py-4">
+                        <h2 class="text-center fw-bold mb-5">Update Doctor Details</h2>
+                        <form method="post" action="{% url 'update-doctor-data' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row justify-content-center g-3">
+
+                                <div class="text-center">
+                                    <div class="d-flex flex-column gap-4">
+
+                                        <label for="file" class="fw-bold">Profile Image</label>
+                                        <div class="text-center">
+                                            {% if data.doctor_image %}
+                                            <img src="{{data.doctor_image.url}}" width="100" height="100"
+                                                class="rounded-circle">
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            <input type="file" name="file" class="image-b   rounded-3" accept="image/*"
+                                                id="image" style="width: 50%;">
+                                            <span id="imageError" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="col-xl-6">
+
+                                    <div class="d-flex flex-column gap-3 ">
+                                        <label for="" class="fw-bold">First Name </label>
+                                        <input type="text" class="rounded-3 px-3 py-1" id="fname" name="fname"
+                                            value="{{data.admin.first_name}}">
+                                        <span id="fnameError" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3 ">
+                                        <label for="" class="fw-bold">Last Name </label>
+                                        <input type="text" class="rounded-3 px-3 py-1" id="lname" name="lname"
+                                            value="{{data.admin.last_name}}">
+                                        <span id="lnameError"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3 ">
+                                        <label for="" class="fw-bold">Qulification </label>
+                                        <input type="text" class="rounded-3 px-3 py-1" id="lname" name="qual"
+                                            value="{{data.qulification}}">
+                                        <span id="lnameError"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3 ">
+
+                                        <label for="" class="fw-bold">Address </label>
+                                        <input type="text" class="rounded-3 px-3 py-1" id="address" name="address"
+                                            value="{{data.doctor_address}}">
+                                        <span id="addressError" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3 ">
+
+                                        <label for="" class="fw-bold">Phone Number </label>
+                                        <input type="tel" class="rounded-3 px-3 py-1" id="phone" name="phone"
+                                            value="{{data.doctor_phone}}">
+                                        <span id="phoneError" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3 ">
+
+                                        <label for="" class="fw-bold">Email </label>
+                                        <input type="email" class="rounded-3 px-3 py-1" id="email" name="email"
+                                            value="{{data.admin.email}}">
+                                        <span id="emailError" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3 ">
+                                        <label for="" class="fw-bold">Username </label>
+                                        <input type="text" class="rounded-3 px-3 py-1" id="username" name="username"
+                                            value="{{data.admin.username}}">
+                                        <span id="usernameError" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3 ">
+                                        <label for="" class="fw-bold">Previous Working Hospital Name </label>
+                                        <input type="text" class="rounded-3 px-3 py-1" id="username" name="hname"
+                                            value="{{data.hospital_name}}">
+                                        <span id="usernameError" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3 ">
+                                        <label for="" class="fw-bold">Specialization</label>
+                                        <select name="select" id="" class="rounded-3 px-3 py-1 border-3">
+                                            {% for d in depts %}
+                                            <option value="{{d.id}}" {% if data.department.id == d.id %} selected {% endif %}>{{d.dep_name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3  ">
+                                        <label for="" class="fw-bold">Gender</label>
+                                        <select name="gender" class="rounded-3 px-3 py-1 border-3">
+
+                                            <option value="Male" {% if data.doctor_gender == "Male" %} selected {% endif %}>
+                                                Male
+                                            </option>
+
+                                            <option value="Female" {% if data.doctor_gender == "Female" %} selected {% endif %}>
+                                                Female
+                                            </option>
+
+                                            <option value="Others" {% if data.doctor_gender == "Others" %} selected {% endif %}>
+                                                Others
+                                            </option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between ">
+
+                                    <a href="{% url 'D-profile' %}" class="btn btn-primary fw-bold">back</a>
+                                    <button type="submit" class="btn btn-primary fw-bold ">Update</button>
+
+                                </div>
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    {% for message in messages %}
+    <script>
+        alert("{{message}}")
+    </script>
+    {% endfor %}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>Links</h5>
+                    <hr>
+                    <a href="{% url 'D-profile' %}">Profile</a><br>
+                    <a href="{% url 'view-today-appointment' %}">Today Appointment</a><br>
+                    <a href="{% url 'upcoming-appointment' %}">Upcoming Appointment</a><br>
+                    <a href="{% url 'doctor-appointment-histroy' %}">Consultation Histroy</a><br>
+                    <a href="{% url 'logout' %}">Logout</a><br>
+
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <hr>
+                    <p>123,street,New York,USA</p>
+                    <p>+123 444 444</p>
+                    <p>+info@example.com
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Openning</h5>
+                    <hr>
+                    <p>Mon - Sat</p>
+                    <p>09.00AM - 07.00PM</p>
+                    <p>Sunday</p>
+                    <p>Emergency Support</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Follow us</h5>
+                    <hr>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+                <div class="text-center">
+                    © 2026 MediCare | All Rights Reserved
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

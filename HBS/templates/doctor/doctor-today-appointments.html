@@ -1,0 +1,139 @@
+{% extends 'doctor-base.html' %}
+
+{% block title %}
+Today Appointments
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+<div class="container mt-5">
+    {% for message in messages %}
+
+    {% if message.tags == 'error' %}
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3 d-flex align-items-center justify-content-between" role="alert">
+    {% else %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm rounded-3 d-flex row align-items-center justify-content-between" role="alert">
+    {% endif %}
+
+        <div class="flex-grow-1 text-center">
+            {{ message }}
+        </div>
+
+        <button type="button"
+                class="btn-close ms-1"
+                data-bs-dismiss="alert"
+                aria-label="Close">
+        </button>
+
+    </div>
+
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+    <div class="">
+        <div class="row justify-content-center">
+            <div class="col-xl-10">
+                <h2 class="text-center">Today Appointments</h2>
+
+                {% for data in datas %}
+                <div class="login-card my-5 p-4">
+                    <div class="row g-1">
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Patient Name</strong>
+                                <strong>:</strong>
+                                <p>
+                                    {{data.patient.admin.first_name}}
+                                    {{data.patient.admin.last_name}}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Patient ID</strong>
+                                <strong>:</strong>
+                                <p>{{data.patient.patient_id}}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Patient Age</strong>
+                                <strong>:</strong>
+                                <p>{{data.patient_age}}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Gender</strong>
+                                <strong>:</strong>
+                                <p>{{data.patient.patient_gender}}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Patient Phone</strong>
+                                <strong>:</strong>
+                                <p>{{data.patient.patient_phone}}</p>
+                            </div>
+                        </div>
+
+                         
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Department</strong>
+                                <strong>:</strong>
+                                <p>{{data.department.dep_name}}</p>
+                            </div>
+                        </div>
+
+                        
+
+                      
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Symptoms</strong>
+                                <strong>:</strong>
+                                <p>{{data.symptoms}}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Status</strong>
+                                <strong>:</strong>
+                                <p>
+                                    <span class="badge bg-success">
+                                        {{data.status}}
+                                    </span>
+                                   
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="d-flex  align-items-center gap-3">
+                         <a href="{% url 'consultation-form' data.id %}" class="btn btn-success btn-sm">Consultation</a>
+                     <a href="{% url 'not-consulted' data.id %}" class="btn btn-danger btn-sm">Not Consultation</a>
+                    </div>
+                    
+
+                </div>
+                
+                {% empty %}
+                    <div class="alert alert-warning text-center">
+                        No appointments today
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

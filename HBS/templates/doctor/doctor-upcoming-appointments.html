@@ -1,0 +1,115 @@
+{% extends 'doctor-base.html' %}
+
+{% block title %}
+Upcoming Appointments
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="">
+        <div class="row justify-content-center">
+            <div class="col-xl-10">
+                <h2 class="text-center">Upcoming Appointments</h2>
+
+                {% for data in datas %}
+                <div class="login-card my-5 p-4">
+                    <div class="row g-1">
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Patient Name</strong>
+                                <strong>:</strong>
+                                <p>
+                                    {{data.patient.admin.first_name}}
+                                    {{data.patient.admin.last_name}}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Patient ID</strong>
+                                <strong>:</strong>
+                                <p>{{data.patient.patient_id}}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Patient Age</strong>
+                                <strong>:</strong>
+                                <p>{{data.patient_age}}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Gender</strong>
+                                <strong>:</strong>
+                                <p>{{data.patient.patient_gender}}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Patient Phone</strong>
+                                <strong>:</strong>
+                                <p>{{data.patient.patient_phone}}</p>
+                            </div>
+                        </div>
+
+                         
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Department</strong>
+                                <strong>:</strong>
+                                <p>{{data.department.dep_name}}</p>
+                            </div>
+                        </div>
+
+                        
+
+                  
+                         <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Appointment Date</strong>
+                                <strong>:</strong>
+                                <p>{{data.appointment_date}}</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Symptoms</strong>
+                                <strong>:</strong>
+                                <p>{{data.symptoms}}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="d-flex gap-3">
+                                <strong>Status</strong>
+                                <strong>:</strong>
+                                <p>
+                                    <span class="badge bg-success">
+                                        {{data.status}}
+                                    </span>
+                                   
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                {% empty %}
+                    <div class="alert alert-warning text-center">
+                        No upcoming appointments 
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title%}
+Contact
+{% endblock %}
+{% block content %}
+
+<br>
+    <br>
+    <br>
+    <br>
+{% if messages %}
+<div class="container mt-5">
+    {% for message in messages %}
+
+    {% if message.tags == 'error' %}
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3 d-flex align-items-center justify-content-between" role="alert">
+    {% else %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm rounded-3 d-flex row align-items-center justify-content-between" role="alert">
+    {% endif %}
+
+        <div class="flex-grow-1 text-center">
+            {{ message }}
+        </div>
+
+        <button type="button"
+                class="btn-close ms-1"
+                data-bs-dismiss="alert"
+                aria-label="Close">
+        </button>
+
+    </div>
+
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+    <div class=" text-center">
+        <h1 class="fw-bold">Contact Us</h1>
+        <p class="text-muted my-4 lh-lg">We’re here to assist you with your healthcare needs. Reach out to us for
+            questions, support, appointments, or any assistance related to MediCare services.
+        </p>
+    </div>
+    <div>
+        <div class="row g-4">
+            <div class="col-xl-4">
+                <div class="contact-card p-4">
+                    <h2 class="mb-4">Contact Information</h2>
+                    <div class="row g-4">
+                        <div class="col-4">
+                            <i class="fa-solid fa-2x fa-phone text-primary bg-white p-3 mt-1 rounded-circle"></i>
+                        </div>
+                        <div class="col-8">
+                            <h3>Call us</h3>
+                            <p class="">+91 96559 13579<br>Mon–Sat : 9 AM–7 PM<br>Sunday : Emergency Support</p>
+                        </div>
+                        <div class="col-4">
+                            <i class="fa-solid fa-2x fa-envelope text-success bg-white p-3 mt-1 rounded-circle"></i>
+                        </div>
+                        <div class="col-8">
+                            <h3>Email Us</h3>
+                            <p class=" text-warp">support@medicare.com</p>
+                        </div>
+
+                        <div class="col-4">
+                            <i class="fa-solid fa-2x fa-location-dot text-danger bg-white p-3 mt-1 rounded-circle"></i>
+                        </div>
+                        <div class="col-8">
+                            <h3>Visit Us</h3>
+                            <p class="">206, 7th Street Gandhipuram, Coimbatore - 641012</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="contact-card p-4">
+                    <div class="container">
+                        <form method="post" action="{% url 'query' %}" id="contactForm">
+                            {% csrf_token %}
+                            <div class="row justify-content-center">
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3">
+                                        <label for="" class="fw-bold">Full Name </label>
+                                        <input type="text" class="rounded-3 py-1 px-3"
+                                            placeholder="Enter your full name" id="name" name="name" required>
+                                        <span id="nameError" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3">
+                                        <label for="" class="fw-bold">Phone Number </label>
+                                        <input type="text" class="rounded-3 py-1 px-3"
+                                            placeholder="Enter your phone number" id="phone" name="phone" required>
+                                        <span id="phoneError" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3">
+                                        <label for="" class="fw-bold">Email </label>
+                                        <input type="text" class="rounded-3 py-1 px-3"
+                                            placeholder="Enter your email address" id="email" name="email" required>
+                                        <span class="text-danger" id="emailError"></span>
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex flex-column gap-3">
+
+                                        <label for="" class="fw-bold">Subject </label>
+                                        <input type="text" class="rounded-3 py-1 px-3"
+                                            placeholder="Enter message subject" id="subject" name="subject" required>
+                                        <span class="text-danger" id="subjectError"></span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column gap-3 ">
+                                    <label for="" class="fw-bold">Message</label>
+                                    <textarea class="rounded-3 py-1 px-3" style="height: 30vh;"
+                                        placeholder="Write your message here..." id="message" name="message"></textarea>
+                                    <span class="text-danger" id="messageError" required></span>
+                                    <button type="submit" class="btn btn-primary fw-bold ">Submit</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="mt-4 text-center contact-card p-4">
+            <h4>Connect With Us</h4>
+            <div class="d-flex justify-content-center gap-4 mt-5">
+                <a href="#"><i class="fa-2x fa-brands fa-facebook-f text-primary"></i></a>
+                <a href="#"><i class="fa-2x fa-brands fa-instagram text-danger "></i></a>
+                <a href="#"><i class="fa-2x fa-brands fa-linkedin-in"></i></a>
+                <a href="#"><i class="fa-2x fa-brands fa-x-twitter text-dark"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+<script src="{% static 'js/contact.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'admin-base.html' %}
+{% block title %}
+View Departments
+{% endblock %}
+{% block content %}
+
+{% if messages %}
+<div class="container mt-5 ">
+    {% for message in messages %}
+
+    <div class="alert 
+        {% if message.tags == 'error' %}
+            alert-danger
+        {% elif message.tags == 'success' %}
+            alert-success
+        {% elif message.tags == 'warning' %}
+            alert-warning
+        {% elif message.tags == 'info' %}
+            alert-info
+        {% endif %}
+        alert-dismissible fade show shadow-sm rounded-3 d-flex align-items-center justify-content-between"
+        role="alert">
+
+        <div class="flex-grow-1 text-center">
+            {{ message }}
+        </div>
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+
+    </div>
+
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+    <div class="">
+        <div class="row justify-content-center g-5">
+            <div class="col-xl-10">
+                <h2 class="fw-bold text-center">View Departments</h2>
+                <div class="table-container">
+                    <table class=" table table-light table-bordered text-center mt-5 align-middle">
+                        <tr class="table-dark">
+                            <th>S.No</th>
+                            <th>Department Name </th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for dep in dept %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{dep.dep_name}}</td>
+                            <td>{{dep.desc}}</td>
+                            <td>
+
+                                <div class="d-flex flex-column">
+                                    <a href="{% url 'edit-department' dep.id %}" class="btn btn-primary px-4">Edit</a>
+                                    <a href="{% url 'delete-department' dep.id %}" class="btn btn-danger mt-1">Delete</a>
+                                </div>
+
+                            </td>
+                        </tr>
+                         {% empty %}
+                    <div class="alert alert-warning text-center">
+                        No Departments 
+                    </div>
+                {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+Doctor Registration
+{% endblock %}
+ 
+{% block content %}
+
+ <br>
+    <br>
+    <br>
+    <br>
+
+<div class="container">
+    <div class="">
+
+        <div class="row justify-content-center">
+            <div class="col-xl-8 ">
+                <div class="register px-5 py-4">
+                    <h2 class="text-center fw-bold mb-5">Dcotor Registration</h2>
+                    <form method="post" action="{% url 'doctor-reg' %}" id="doctorForm" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row justify-content-center g-3">
+                            <div class="col-xl-6">
+
+                                <div class="d-flex flex-column gap-3 ">
+
+                                    <label for="" class="fw-bold">First Name </label>
+                                    <input type="text" placeholder="Enter the First Name" class="rounded-3 px-3 py-1"
+                                        id="fname" name="fname" required>
+                                    <span id="fnameError" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="d-flex flex-column gap-3 ">
+                                    <label for="" class="fw-bold">Last Name </label>
+                                    <input type="text" placeholder="Enter the Last Name " class="rounded-3 px-3 py-1"
+                                        id="lname" name="lname" required>
+                                    <span id="lnameError" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+
+                                <div class="d-flex flex-column gap-3 ">
+
+                                    <label for="" class="fw-bold">Data of Birth</label>
+                                    <input type="date" name="dob" class="rounded-3 px-3 py-1" required>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+
+                                <div class="d-flex flex-column gap-3 ">
+
+                                    <label for="" class="fw-bold">Gender</label>
+                                    <select name="gender" id="" class="rounded-3 px-3 py-1 border-3">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+
+                                <div class="d-flex flex-column gap-3 ">
+
+                                    <label for="" class="fw-bold">Address </label>
+                                    <input type="text" placeholder="Enter the Address" class="rounded-3 px-3 py-1"
+                                        id="address" name="address" required>
+                                    <span id="addressError" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+
+                                <div class="d-flex flex-column gap-3 ">
+
+                                    <label for="" class="fw-bold">Phone Number </label>
+                                    <input type="tel" placeholder="Enter the Phone Number" class="rounded-3 px-3 py-1"
+                                        id="phone" name="phone" required>
+                                    <span id="phoneError" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+
+                                <div class="d-flex flex-column gap-3 ">
+
+                                    <label for="" class="fw-bold">Email </label>
+                                    <input type="email" placeholder="Enter the Email" class="rounded-3 px-3 py-1"
+                                        id="email" name="email" required>
+                                    <span id="emailError" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+
+                                <div class="d-flex flex-column gap-3 ">
+                                    <label for="" class="fw-bold">Username </label>
+                                    <input type="text" placeholder="Entet the Username" class="rounded-3 px-3 py-1"
+                                        id="username" name="uname" required>
+                                    <span id="usernameError" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+
+                                <div class="d-flex flex-column gap-3 ">
+                                    <label for="" class="fw-bold">Medical Registration Number </label>
+                                    <input type="number" placeholder="Enter medical registration number"
+                                        class="rounded-3 px-3 py-1" id="regno" name="mregno" required>
+                                    <span id="regnoError" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+
+                                <div class="d-flex flex-column gap-3 ">
+                                    <label for="" class="fw-bold">Specialization</label>
+                                    <select name="select" id="" class="rounded-3 px-3 py-1 border-3">
+                                        {% for d in dept %}
+                                        <option value="{{d.id}}">{{d.dep_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+
+                                <div class="d-flex flex-column gap-3 ">
+                                    <label for="" class="fw-bold">Qualification </label>
+                                    <input type="text" placeholder="Enter qualification" class="rounded-3 px-3 py-1"
+                                        id="qualification" name="qual" required>
+                                    <span id="qualificationError" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+
+                                <div class="d-flex flex-column gap-3 ">
+                                    <label for="" class="fw-bold">Years of Experience</label>
+                                    <input type="number" placeholder="Enter years of experience"
+                                        class="rounded-3 px-3 py-1" name="yoe" required>
+
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+
+                                <div class="d-flex flex-column gap-3 ">
+                                    <label for="" class="fw-bold">Previous Working Hospital / Clinic Name</label>
+                                    <input type="text" placeholder="Enter previous working hospital name"
+                                        class="rounded-3 px-3 py-1" name="hname" id="hospital" required>
+                                    <span id="hospitalError" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6">
+                                <div class="d-flex flex-column gap-3">
+
+                                    <label for="file" class="fw-bold">Profile Image</label>
+                                    <input type="file" name="file" class="image-b  rounded-3" id="image"
+                                        accept="image/*">
+                                    <span id="imageError" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+
+                            <button type="submit" class="btn btn-primary fw-bold mt-3 " style="width: 100%;">Register
+                                Now</button>
+
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="{% url 'login' %}">Already have an account? Login here</a>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    Registration Submitted
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+
+
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                        <p class="text-break lh-3">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+            <div class="modal-footer">
+
+                <a href="{% url 'doctor' %}"
+                   class="btn btn-primary">
+                   Ok
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% for message in messages %}
+    {% if message.tags == 'success' %}
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+
+    let modal = new bootstrap.Modal(
+        document.getElementById('successModal')
+    );
+
+    modal.show();
+
+});
+</script>
+   {% else %}
+
+    <script>
+        alert("{{ message }}");
+    </script>
+
+    {% endif %}
+{% endfor %}
+{% endblock %}

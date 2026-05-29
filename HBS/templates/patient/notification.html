@@ -1,0 +1,43 @@
+{% extends 'patient-base.html' %}
+{% block title %}
+Booking Appointment 
+{% endblock %}
+{% block content %}
+
+ 
+
+<div class="container ">
+
+    <h3 class="mb-4">
+        Notifications
+    </h3>
+
+    {% for msg in messages %}
+
+    <div class="card mb-3 shadow-sm">
+
+        <div class="card-body">
+
+            <h6>
+                {{ msg.message }}
+            </h6>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="alert alert-info">
+
+        No notifications
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+ 
+
+{% endblock %}

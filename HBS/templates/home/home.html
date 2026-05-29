@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<section class="hero-section d-flex align-items-center mt-5 ">
+
+    <div class="container text-white">
+
+        <h1 class="display-4 fw-bold">
+            Welcome to MediCare Hospital
+        </h1>
+
+        <p class="lead">
+            Your Health, Our Priority.
+            Book appointments with expert doctors quickly and easily.
+        </p>
+
+        <div class="d-flex gap-2">
+            <a href="{%  url 'patient' %}" class="btn btn-primary fw-bold">Patient Register</a>
+            <a href="{% url 'doctor' %}" class="btn btn-danger fw-bold">Doctor Register</a>
+        </div>
+
+    </div>
+
+</section>
+<div class="container-fluid">
+    <div class="home-about p-5 my-5">
+        <h2 class="text-center py-4 fw-bold ">About MediCare Hospital System</h2>
+        <div class="row justify-content-center g-4">
+            <div class="col-lg-8 order-2 order-lg-1">
+                <p class="fw-normal lh-lg text-break ">MediCare is a smart hospital management platform designed to
+                    simplify healthcare
+                    services for patients and doctors. It allows patients to easily book appointments and access their
+                    medical records securely anytime. Doctors can manage schedules, update patient details, and provide
+                    better treatment efficiently. The system reduces manual paperwork and improves overall hospital
+                    workflow. It ensures fast communication between patients, doctors, and hospital staff. MediCare is
+                    user-friendly and designed with strong security to protect patient data. Overall, it improves
+                    efficiency, reduces waiting time, and enhances healthcare services.</p>
+            </div>
+            <div class="col-lg-4 order-1 order-lg-2 ">
+                <div class="d-flex justify-content-center">
+
+                    <img src="https://t4.ftcdn.net/jpg/02/50/76/73/240_F_250767339_GyTUzgmwzhBdSSDSCznEMKiLcvO9IuhO.jpg"
+                        alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="service-card p-5 my-5">
+        <h2 class="text-center fw-bold py-5">Our Services</h2>
+        <div class="row justify-content-center g-2">
+            <div class="col-md-4">
+                <div class="s-card  p-3">
+                    <i class="fa-solid fa-calendar-check fa-2x text-primary"></i>
+                    <h5 class="mt-3">Online Appointment Booking</h5>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="s-card  p-3">
+                    <i class="fa-solid fa-user-doctor fa-2x text-primary"></i>
+                    <h5 class="mt-3">Doctor Management System</h5>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="s-card  p-3">
+                    <i class="fa-solid fa-user fa-2x text-primary"></i>
+                    <h5 class="mt-3">Patient Registration & Records</h5>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="s-card  p-3">
+                    <i class="fa-solid fa-notes-medical fa-2x text-primary"></i>
+                    <h5 class="mt-3">Medical History Tracking</h5>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="s-card  p-3">
+                    <i class="fa-solid fa-clock fa-2x text-primary"></i>
+                    <h5 class="mt-3">Quick Consultation Access</h5>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="s-card  p-3">
+                    <i class="fa-solid fa-shield-halved fa-2x text-primary"></i>
+                    <h5 class="mt-3">Secure Data Management</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid text-center ">
+    <div class="choose-us p-5">
+        <h2 class="fw-bold">Why Choose MediCare?</h2>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-4">
+                <div class="c-card p-4">
+                    <i class="fa-solid fa-thumbs-up fa-2x text-primary mb-2"></i>
+                    <h6>Easy System</h6>
+                    <p class="text-muted">Simple and user-friendly interface</p>
+                </div>
+            </div>
+            <div class="col-md-4 ">
+                <div class="c-card p-4">
+                    <i class="fa-solid fa-bolt fa-2x text-primary mb-2"></i>
+                    <h6>Fast Booking</h6>
+                    <p class="text-muted">Quick appointment scheduling</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="c-card p-4">
+                    <i class="fa-solid fa-shield-halved fa-2x text-primary mb-2"></i>
+                    <h6>Secure Data</h6>
+                    <p class="text-muted">Protected patient information</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="impact-card p-5 text-center">
+        <h2 class="fw-bold">Our Impact</h2>
+        <div class="row justify-content-center mt-4 g-5">
+            <div class="col-md-3">
+                <div class="i-card p-4">
+                    <i class="fa-solid fa-user-doctor fa-2x text-primary"></i>
+                    <h3 class="mt-2">50+</h3>
+                    <p>Doctors Registered</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="i-card p-4">
+                    <i class="fa-solid fa-user fa-2x text-primary"></i>
+                    <h3 class="mt-2">1000+</h3>
+                    <p>Patients Served</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="i-card p-4">
+                    <i class="fa-solid fa-calendar-check fa-2x text-primary"></i>
+                    <h3 class="mt-2">500+</h3>
+                    <p>Appointments</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="i-card p-4">
+                    <i class="fa-solid fa-shield-halved fa-2x text-primary"></i>
+                    <h3 class="mt-2">Trusted</h3>
+                    <p>Platform</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="cta p-5 text-center">
+        <h2 class="fw-bold m-4">Join MediCare Today</h2>
+        <p class="lead p-2">Experience a smarter way of managing healthcare services. Register now and be part of the
+            future of digital healthcare.</p>
+        <div class="d-flex gap-2 justify-content-center">
+            <a href="{%  url 'patient' %}" class="btn btn-primary fw-bold">Patient Register</a>
+            <a href="{% url 'doctor' %}" class="btn btn-danger fw-bold">Doctor Register</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

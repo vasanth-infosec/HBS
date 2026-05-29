@@ -1,0 +1,107 @@
+{% extends 'patient-base.html' %}
+{% block title %}
+Booking Appointment 
+{% endblock %}
+{% block content %}
+{% if messages %}
+<div class="container mt-5">
+    {% for message in messages %}
+
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3 d-flex align-items-center justify-content-between"
+        role="alert">
+        {% else %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm rounded-3 d-flex row align-items-center justify-content-between"
+            role="alert">
+            {% endif %}
+
+            <div class="flex-grow-1 text-center">
+                {{ message }}
+            </div>
+
+            <button type="button" class="btn-close ms-1" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+
+        </div>
+
+        {% endfor %}
+    </div>
+    {% endif %}
+<div class="container py-5 ">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9 col-12">
+
+            <div class="card p-4">
+                <h3 class="text-center title mb-4">Book Appointment</h3>
+
+                <form method="POST" action="{% url 'booking-appointment-data' %}">
+                    {% csrf_token %}
+
+                    <!-- Doctor -->
+                     <div class="mb-3">
+                        <label class="form-label">Patient ID</label>
+                        <input type="text" class="form-control" value="{{patient.patient_id}}" readonly>
+                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Select Doctor</label>
+                        <select class="form-select" name="doctor" id="doctorSelect" required>
+                            <option value="">Choose Doctor</option>
+                            {% for d in doctor %}
+                                <option 
+                                    value="{{ d.id }}"
+                                    data-dept="{{ d.department.dep_name }}">
+                                    Dr. {{ d.admin.first_name }} {{ d.admin.last_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Department (Auto Display) -->
+                    <div class="mb-3">
+                        <label class="form-label">Department</label>
+                        <input type="text" class="form-control" id="department" name="department" readonly>
+                    </div>
+
+                    <!-- Appointment Date -->
+                    <div class="mb-3">
+                        <label class="form-label">Appointment Date</label>
+                        <input type="date" class="form-control" name="appointment_date" required>
+                    </div>
+
+                    <!-- Appointment Time -->
+                     
+
+                    <!-- Reason -->
+                    <div class="mb-3">
+                        <label class="form-label">Symptoms</label>
+                        <textarea class="form-control" name="symptoms" rows="4" required></textarea>
+                    </div>
+
+                    <!-- Phone -->
+                     
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary w-100 py-2">
+                        Book Appointment
+                    </button>
+
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+document.getElementById("doctorSelect").addEventListener("change", function () {
+    let selectedOption = this.options[this.selectedIndex];
+    let department = selectedOption.getAttribute("data-dept");
+
+    document.getElementById("department").value = department || "";
+});
+</script>
+{% endblock %}
+
+ 

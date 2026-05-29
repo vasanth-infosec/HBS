@@ -1,0 +1,84 @@
+{% extends 'admin-base.html' %}
+{% block title %}
+View Patient
+{% endblock %}
+{% block content %}
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+
+    {% if message.tags == 'error' %}
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3 d-flex row align-items-center justify-content-between" role="alert">
+    {% else %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm rounded-3 d-flex row  align-items-center justify-content-between" role="alert">
+    {% endif %}
+
+        <div class="flex-grow-1 text-center">
+            {{ message }}
+        </div>
+
+        <button type="button"
+                class="btn-close ms-1"
+                data-bs-dismiss="alert"
+                aria-label="Close">
+        </button>
+
+    </div>
+
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+    <div class="">
+        <div class="row justify-content-center g-5">
+            <div class="col-xl-12">
+                <h2 class="fw-bold text-center">View Patients Details</h2>
+                <div class="table-container">
+                    <table class=" table table-light table-bordered text-center mt-5 align-middle">
+                        <tr class="table-dark">
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Patient ID</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Blood Group</th>
+                            <th>Address</th>
+                            <th>Phone No</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for data in datas %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{data.admin.first_name}} {{data.admin.last_name}}</td>
+                            <td>{{data.patient_id}}</td>
+                            <td>{{data.patient_age}}</td>
+                            <td>{{data.patient_gender}}</td>
+                            <td>{{data.patient_blood_group}}</td>
+                            <td>{{data.patient_address}}</td>
+                            <td>{{data.patient_phone}}</td>
+                            <td>{{data.admin.email}}</td>
+                            <td>{{data.admin.username}}</td>
+                            <td>
+
+                                <div class="d-flex flex-column">
+                                    <a href="{% url 'delete-patient' data.id %}" class="btn btn-danger mt-1">Delete</a>
+                                </div>
+
+                            </td>
+                        </tr>
+                         {% empty %}
+                    <div class="alert alert-warning text-center">
+                        No patients
+                    </div>
+                {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

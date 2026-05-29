@@ -1,0 +1,353 @@
+{% extends 'patient-base.html' %}
+{% block title %}
+My Appointments
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div class="container mt-5">
+    {% for message in messages %}
+
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3 d-flex align-items-center justify-content-between"
+        role="alert">
+        {% else %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm rounded-3 d-flex row align-items-center justify-content-between"
+            role="alert">
+            {% endif %}
+
+            <div class="flex-grow-1 text-center">
+                {{ message }}
+            </div>
+
+            <button type="button" class="btn-close ms-1" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+
+        </div>
+
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="container">
+        <div class="">
+            <div class="row justify-content-center">
+                <div class="col-xl-10">
+                    <h2 class="text-center">Appointment History</h2>
+                    {% for data in datas %}
+                    <div class="modal fade" id="msg{{data.id}}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+                                    <h5 class="modal-title">
+                                        Appointment Details
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    {% if data.status == 'Pending' %}
+
+                                    <div class="alert alert-warning">
+                                        <h6>Appointment Pending</h6>
+
+                                        <p>
+                                            Your appointment request is waiting for Admin approval.
+                                        </p>
+                                    </div>
+
+
+                                    {% elif data.status == 'Rejected' %}
+
+                                    <div class="alert alert-danger">
+
+                                        <h6>Appointment Rejected</h6>
+
+                                        <p>
+                                            <strong>Reason :</strong>
+                                            {{data.rejected_reason}}
+                                        </p>
+
+                                        <p>
+                                            <strong>Suggested Date :</strong>
+                                            {{data.suggested_date}}
+                                        </p>
+
+                                        <p>
+                                            <strong>Suggested Time :</strong>
+                                            {{data.suggested_time}}
+                                        </p>
+
+                                    </div>
+
+                                    <!-- Appointment Approved -->
+                                    {% elif data.status == 'Approved' %}
+
+                                    <!-- Consultation Pending -->
+                                    {% if data.consultation_status == 'pending' %}
+
+                                    <div class="alert alert-info">
+
+                                        <h6>Consultation Pending</h6>
+
+                                        <p>
+                                            Appointment approved successfully.
+                                            Consultation is still pending.
+                                        </p>
+
+                                    </div>
+
+
+                                    <!-- Not Consulted -->
+                                    {% elif data.consultation_status == 'Not Consulted' %}
+
+                                    <div class="alert alert-danger">
+
+                                        <h6>Not Consulted</h6>
+
+                                        <p>
+                                            Doctor could not complete consultation.
+                                        </p>
+
+                                        {% for c in consultations %}
+                                        <p>
+                                            <strong>Reason :</strong>
+                                            {{ c.reason }}
+                                        </p>
+                                        {% endfor %}
+
+                                    </div>
+
+
+                                    <!-- Consulted -->
+                                    {% elif data.consultation_status == 'CONSULATED' %}
+
+                                    <div class="alert alert-success">
+
+                                        <h5 class="text-center">
+                                            Consultation History
+                                        </h5>
+
+                                        {% for c in consultations %}
+
+                                        <div class="query-card my-4 p-4">
+
+                                            <p>
+                                                <strong>Doctor:</strong>
+                                                {{ c.doctor.admin.first_name }}
+                                                {{ c.doctor.admin.last_name }}
+                                            </p>
+
+                                            <p>
+                                                <strong>Date:</strong>
+                                                {{ c.created_at }}
+                                            </p>
+
+                                            <p>
+                                                <strong>Diagnosis:</strong>
+                                                {{ c.diagnosis }}
+                                            </p>
+
+                                            <p>
+                                                <strong>Prescription:</strong>
+                                                {{ c.prescription }}
+                                            </p>
+
+                                            <p>
+                                                <strong>Notes:</strong>
+                                                {{ c.notes }}
+                                            </p>
+
+                                        </div>
+
+                                        {% empty %}
+
+                                        <p class="text-center">
+                                            No consultations yet
+                                        </p>
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                    {% endif %}
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div class="modal-footer">
+
+                                    <button class="btn btn-secondary" data-bs-dismiss="modal">
+
+                                        Close
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="query-card my-5 p-4">
+                        <div class="row g-1">
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3">
+                                    <strong>Appointment ID </strong>
+                                    <strong>:</strong>
+                                    <p>{{data.appointment_id}}</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3">
+                                    <strong>Patient Name</strong>
+                                    <strong>:</strong>
+                                    <p>{{data.patient.admin.first_name}} {{data.patient.admin.last_name}}</p>
+                                </div>
+
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3">
+                                    <strong>Patient ID</strong>
+                                    <strong>:</strong>
+                                    <p>{{data.patient.patient_id}}</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3">
+                                    <strong>Patient Age</strong>
+                                    <strong>:</strong>
+                                    <p>{{data.patient_age}}</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3">
+                                    <strong>Gender</strong>
+                                    <strong>:</strong>
+                                    <p>{{data.patient.patient_gender}}</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3">
+                                    <strong>Patient Phone No </strong>
+                                    <strong>:</strong>
+                                    <p class="text-break">{{data.phone}}</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3">
+                                    <strong>Doctor Name </strong>
+                                    <strong>:</strong>
+                                    <p class="text-break">{{data.Doctor.admin.first_name}}
+                                        {{data.Doctor.admin.last_name}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3">
+                                    <strong>Department</strong>
+                                    <strong>:</strong>
+                                    <p>{{data.department.dep_name}}</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3">
+                                    <strong>Appointment Date</strong>
+                                    <strong>:</strong>
+                                    <p>{{data.appointment_date}}</p>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3">
+                                    <strong>Appointment Time</strong>
+                                    <strong>:</strong>
+                                    <p>{{data.appointment_time}}</p>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3">
+                                    <strong>Symptoms</strong>
+                                    <strong>:</strong>
+                                    <p>{{data.symptoms}}</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3">
+                                    <strong>Booking Date and Time</strong>
+                                    <strong>:</strong>
+                                    <p>{{data.created_at}}</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3 align-items-center">
+
+                                    <strong>Status</strong>
+                                    <strong>:</strong>
+
+                                    {% if data.status == 'Approved' %}
+                                    <span class="badge bg-success p-2">Approved</span>
+
+                                    {% elif data.status == 'Pending' %}
+                                    <span class="badge bg-warning text-dark p-2">Pending</span>
+
+                                    {% elif data.status == 'Rejected' %}
+                                    <span class="badge bg-danger p-2">Rejected</span>
+
+                                    {% else %}
+                                    <span class="badge bg-secondary p-2">Unknown</span>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6">
+                                <div class="d-flex gap-3 align-items-center">
+
+                                    <strong>Consultation Status</strong>
+                                    <strong>:</strong>
+
+                                    {% if data.consultation_status == 'CONSULATED' %}
+                                    <span class="badge bg-success p-2">CONSULTED</span>
+
+                                    {% elif data.consultation_status == 'Not Consulted' %}
+                                    <span class="badge bg-warning text-dark p-2">Not Consulted</span>
+
+                                    {% elif data.consultation_status == 'pending' %}
+                                    <span class="badge bg-warning text-dark p-2">Pending</span>
+
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- SINGLE VIEW BUTTON -->
+                        <button class="btn btn-primary btn-sm mt-4 " style="width: 100%;" data-bs-toggle="modal"
+                            data-bs-target="#msg{{ data.id }}">
+                            View
+                        </button>
+
+                    </div>
+                    {% empty %}
+                    <div class="alert alert-warning text-center">
+                        No appointments
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% block title %}
+About
+{% endblock %}
+{% block content%}
+
+<section class="about-hero text-center d-flex align-items-center mt-5">
+    <div class="container">
+        <h1 class="fw-bold">Know More About MediCare</h1>
+
+        <p class="lead">
+            Building a smarter healthcare system through technology and innovation.
+        </p>
+    </div>
+</section>
+
+<section class="who-we-are p-2 m-2 p-md-5 my-md-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4">
+                <div class="d-flex justify-content-center">
+
+                    <img src="https://t4.ftcdn.net/jpg/01/74/93/79/240_F_174937901_pgEULeHser74Kmm0PJCLTyYwT89SlSoQ.jpg"
+                        alt="" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <h2 class="mt-3">Who We Are</h2>
+                <p class="text-muted lh-lg ">MediCare is a modern hospital management platform created to simplify and
+                    improve
+                    healthcare services. It connects patients and doctors through a secure and user-friendly digital
+                    system. The platform helps patients book appointments easily, access medical records, and receive
+                    healthcare services without unnecessary delays. MediCare reduces paperwork, improves hospital
+                    workflow, and enhances communication between healthcare providers and patients. Overall, it offers a
+                    faster, safer, and more organized healthcare experience.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="our-journey  p-2 m-2 p-md-5 my-md-5">
+    <div class="container">
+        <div class="row align-items-center">
+
+
+            <div class="col-lg-8 order-2 order-lg-1">
+                <h2 class="mt-2">Our Journey</h2>
+                <p class="text-muted lh-lg ">The idea behind MediCare was developed to solve common problems faced in
+                    traditional healthcare systems, such as long waiting times, manual record management, and
+                    communication gaps between patients and doctors. Through
+                    careful planning, research, and innovation, MediCare evolved into a smart hospital management system
+                    focused on improving patient care and hospital operations. Our journey continues with a commitment
+                    to enhancing healthcare through technology, efficiency, and better user experiences.</p>
+            </div>
+            <div class="col-lg-4 order-1 order-lg-2">
+                <div class="d-flex justify-content-center">
+                    <img src="https://t3.ftcdn.net/jpg/20/02/04/94/240_F_2002049489_9DH6pSjXfLb1N4dO2d4KLwY1L2RgNMdj.jpg"
+                        alt="" class="img-fluid about-img">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2 class="text-center fw-bold my-5 ">Our Goals</h2>
+
+    <div class="row align-items-center g-4 col-xl-11 mx-auto">
+        <div class="col-md-4">
+            <div class="about-card py-5 px-1">
+                <i class="fa-solid fa-globe fa-2x text-primary"></i>
+
+                <h5 class="mt-3">
+                    Improve healthcare accessibility
+                </h5>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="about-card py-5 px-1">
+                <i class="fa-solid fa-hospital fa-2x text-primary"></i>
+
+                <h5 class="mt-3">
+                    Reduce manual processes
+                </h5>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="about-card py-5 px-1">
+                <i class="fa-solid fa-comments fa-2x text-primary"></i>
+
+                <h5 class="mt-3">
+                    Doctor–patient communication
+                </h5>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="p-5 ">
+    <div class="container text-center">
+        <h2>Our Core Values</h2>
+        <div class="row align-items-center justify-content-center mt-5">
+            <div class="col-md-2 ">
+                <div class="my-4">
+
+                    <i class="fa-solid fa-heart fa-2x text-danger"></i>
+                    <h6 class="mt-2">Care</h6>
+                </div>
+            </div>
+            <div class="col-md-2 ">
+                <div class="my-4">
+
+                    <i class="fa-solid fa-lock fa-2x text-primary"></i>
+                    <h6 class="mt-2">Security</h6>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="my-4">
+
+                    <i class="fa-solid fa-handshake fa-2x text-success"></i>
+                    <h6 class="mt-2">Trust</h6>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="my-4">
+
+                    <i class="fa-solid fa-lightbulb fa-2x text-warning"></i>
+                    <h6 class="mt-2">Innovation</h6>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="my-4">
+
+                    <i class="fa-solid fa-bolt fa-2x text-info"></i>
+                    <h6 class="mt-2">Efficiency</h6>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<div class="container">
+    <div class="cta p-5 text-center">
+        <h2 class="fw-bold m-4">Healthcare Made Smarter</h2>
+        <p class="lead p-2">MediCare is committed to creating a healthcare experience that is simple, secure, and
+            accessible for everyone.</p>
+        <div class="d-flex gap-2 justify-content-center">
+            <a href="{%  url 'patient' %}" class="btn btn-primary fw-bold">Patient Register</a>
+            <a href="{% url 'doctor' %}" class="btn btn-danger fw-bold">Doctor Register</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

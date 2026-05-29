@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+
+<br>
+    <br>
+    <br>
+    <br>
+
+{% if messages %}
+<div class="container mt-5">
+    {% for message in messages %}
+
+    {% if message.tags == 'error' %}
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3 d-flex align-items-center justify-content-between" role="alert">
+    {% else %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm rounded-3 d-flex row align-items-center justify-content-between" role="alert">
+    {% endif %}
+
+        <div class="flex-grow-1 text-center">
+            {{ message }}
+        </div>
+
+        <button type="button"
+                class="btn-close ms-1"
+                data-bs-dismiss="alert"
+                aria-label="Close">
+        </button>
+
+    </div>
+
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container ">
+    <div class="">
+        <div class="row justify-content-center">
+
+            <div class="col-xl-5 col-md-7">
+
+                <div class="login-card p-5">
+
+                    <h3 class="fw-bold mb-4">
+                        Login to Your Account
+                    </h3>
+
+                     
+                    
+                    <form method="POST" action="{% url 'login-data' %}">
+                        {% csrf_token %}
+
+                        <div class="d-flex flex-column gap-3">
+
+                            <label class="fw-bold">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                name="username"
+                                placeholder="Enter Your Username"
+                                class="rounded-2 px-3 py-2"
+                                required>
+
+                            <label class="fw-bold">
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Enter Your Password"
+                                class="rounded-2 px-3 py-2"
+                                required>
+
+                            <button type="submit"
+                                class="btn btn-primary fw-bold mt-3">
+
+                                Submit
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                    <div class="d-flex justify-content-between gap-2 mt-3">
+
+                        <a href="{% url 'patient' %}"
+                           class="btn btn-primary fw-bold">
+
+                           Patient Register
+                        </a>
+
+                        <a href="{% url 'doctor' %}"
+                           class="btn btn-danger fw-bold">
+
+                           Doctor Register
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,155 @@
+<nav class="navbar navbar-expand-lg fixed-top py-2 nav-bg ">
+    <div class="container-fluid d-flex flex-nowrap align-items-center">
+        <a href="{% url 'admin-dashboard' %}"
+            class="navbar-brand logo {% if request.resolver_match.url_name == 'admin-dashboard' %}active nav-act fw-bold{% else %}text-light{% endif %}">Dashboard</a>
+        <button class="navbar-toggler border-0 shadow-none ms-auto w-auto " type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end nav-bg" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header ">
+                <a href="{% url 'admin-dashboard'%}"
+                    class="offcanvas-title{% if request.resolver_match.url_name == 'admin-dashboard' %}active nav-act fw-bold{% endif %} text-light"
+                    id="offcanvasNavbarLabel">Dashboard</a>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'A-profile' %}active nav-act fw-bold{% else %}text-light{% endif %}"
+                            href="{% url 'A-profile' %}">Profile</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle position-relative
+    {% if request.resolver_match.url_name == 'querys_page' or request.resolver_match.url_name == 'patient-requests' or request.resolver_match.url_name == 'doctor-requests' or request.resolver_match.url_name == 'view-appointments' or request.resolver_match.url_name == 'consultation-status' %}
+    active nav-act fw-bold text-white
+    {% else %}
+    text-light
+    {% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                            Requests
+
+                            {% if total_pending > 0 %}
+                            <span
+                                class="position-absolute top-25 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                <span class="visually-hidden">New alerts</span>
+                            </span>
+                            {% endif %}
+
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                    href="{% url 'querys_page' %}">
+                                    Querys
+
+                                    {% if query_pending > 0 %}
+                                    <span class="badge rounded-pill bg-danger">
+                                        {{query_pending}}
+                                    </span>
+                                    {% endif %}
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                    href="{% url 'doctor-requests' %}">
+                                    Doctor Register Requests
+
+                                    {% if doctor_pending > 0 %}
+                                    <span class="badge rounded-pill bg-danger">
+                                        {{doctor_pending}}
+                                    </span>
+                                    {% endif %}
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                    href="{% url 'patient-requests' %}">
+                                    Patient Register Requests
+
+                                    {% if patient_pending > 0 %}
+                                    <span class="badge rounded-pill bg-danger">
+                                        {{patient_pending}}
+                                    </span>
+                                    {% endif %}
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                    href="{% url 'view-appointments' %}">
+                                    Appointment Requests
+
+                                    {% if appointment_pending > 0 %}
+                                    <span class="badge ms-3 rounded-pill bg-danger">
+                                        {{appointment_pending}}
+                                    </span>
+                                    {% endif %}
+                                </a>
+                            </li>
+                                      <li>
+                                <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                    href="{% url 'consultation-status' %}">
+                                    Consultation Status
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'add-department' or request.resolver_match.url_name == 'view-department' %} active nav-act fw-bold text-white {% else %}
+                            text-light {% endif %} " href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Derpartment
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item  {% if request.resolver_match.url_name == 'add-department' %} active {% endif %}"
+                                    href="{% url 'add-department' %}">Add Derpartment</a></li>
+                            <li><a class="dropdown-item  {% if request.resolver_match.url_name == 'view-department' %} active {% endif %}"
+                                    href="{% url 'view-department' %}">View Derpartment</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'add-patient' or request.resolver_match.url_name == 'view-patient' %} active nav-act fw-bold text-white {% else %}
+                            text-light {% endif %} " href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Patient
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item  {% if request.resolver_match.url_name == 'add-patient' %} active {% endif %}"
+                                    href="{% url 'add-patient' %}">Add Patient</a></li>
+                            <li><a class="dropdown-item  {% if request.resolver_match.url_name == 'view-patient' %} active {% endif %}"
+                                    href="{% url 'view-patient' %}">View Patient</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'add-doctor' or request.resolver_match.url_name == 'view-doctor' %} active nav-act fw-bold text-white {% else %}
+                            text-light {% endif %} " href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Doctor
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item  {% if request.resolver_match.url_name == 'add-doctor' %} active {% endif %}"
+                                    href="{% url 'add-doctor' %}">Add Doctor</a></li>
+                            <li><a class="dropdown-item  {% if request.resolver_match.url_name == 'view-doctor' %} active {% endif %}"
+                                    href="{% url 'view-doctor' %}">View Doctor</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'logout' %}active nav-act fw-bold{% else %}text-light{% endif %}"
+                            href="{% url 'logout' %} ">Logout</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

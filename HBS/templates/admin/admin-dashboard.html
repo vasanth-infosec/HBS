@@ -1,0 +1,190 @@
+{% extends 'admin-base.html' %}
+
+{% load static %}
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+<div class="container mt-5">
+    {% for message in messages %}
+
+    {% if message.tags == 'error' %}
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3 d-flex align-items-center justify-content-between" role="alert">
+    {% else %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm rounded-3 d-flex row align-items-center justify-content-between" role="alert">
+    {% endif %}
+
+        <div class="flex-grow-1 text-center">
+            {{ message }}
+        </div>
+
+        <button type="button"
+                class="btn-close ms-1"
+                data-bs-dismiss="alert"
+                aria-label="Close">
+        </button>
+
+    </div>
+
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+    <div class="dashboard">
+        <div class="row ">
+            <div class="col-xl-12">
+                <h1 class="display-3 text-center fw-bold mb-5">Admin Dashboard</h1>
+                <div class="row g-4">
+                    <div class="col-lg-3">
+                        <div class="row justify-content-center g-2 g-xl-5 g-lg-5">
+
+                            <div class="col-12 col-md-4 col-lg-12">
+                                <div class="dashboard-card bg-success text-light h-100 ">
+                                    <div class="d-flex flex-column align-items-center py-4 ">
+                                        <h3 class="text-center fw-bold">Total Patient</h3>
+                                        <h5 class="text-center display-5 fw-bold">{{total_patients}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4 col-lg-12">
+                                <div class="dashboard-card bg-primary text-light h-100">
+                                    <div class="d-flex flex-column align-items-center py-4 ">
+                                        <h3 class="text-center fw-bold">Total Doctor</h3>
+                                        <h5 class="text-center display-5 fw-bold">{{total_doctors}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                         
+                            <div class="col-12 col-md-4 col-lg-12">
+                                <div class="dashboard-card bg-secondary text-light h-100">
+                                    <div class="d-flex flex-column align-items-center p-4  ">
+                                        <h3 class="text-center fw-bold">Total Appointments</h3>
+                                        <h5 class="text-center display-5 fw-bold">{{total_appointments}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-9"> 
+                        <form method="GET">
+
+                        
+                            <div class="dashboard-card px-5 py-3 bg-secondary text-light">
+
+                                <!-- ===================== -->
+                                <!-- DEPARTMENT DROPDOWN -->
+                                <!-- ===================== -->
+                                <div class="mb-3">
+                                    <label class="form-label">Select Department</label>
+
+                                    <select class="form-select" name="department" onchange="this.form.submit()">
+                                        <option value="">Choose Department</option>
+
+                                        {% for dep in departments %}
+                                        <option value="{{ dep.id }}" {% if request.GET.department == dep.id|stringformat:"s" %}selected{% endif %}>
+                                            {{ dep.dep_name }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <!-- ===================== -->
+                                <!-- DOCTOR DROPDOWN -->
+                                <!-- ===================== -->
+                                <div class="mb-3">
+                                    <label class="form-label">Select Doctor</label>
+
+                                    <select class="form-select" name="doctor" onchange="this.form.submit()">
+                                        <option value="">Choose Doctor</option>
+
+                                        {% for d in doctor %}
+                                        <option value="{{ d.id }}" {% if request.GET.doctor == d.id|stringformat:"s" %}selected{% endif %}>
+                                            Dr. {{ d.admin.first_name }} {{ d.admin.last_name }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <!-- ===================== -->
+                                <!-- SELECTED DOCTOR TABLE -->
+                                <!-- ===================== -->
+                                
+                                <div class="table-container">
+                                    <table class="table table-bordered text-light mt-3">
+
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Doctor Name</th>
+                                        <th>Department</th>
+                                        <th>Appointments Today</th>
+                                        <th>Remaining Slots</th>
+                                    </tr>
+
+                                    {% if selected_doctor %}
+
+                                    {% for d in selected_doctor %}
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Dr. {{ d.admin.first_name }} {{ d.admin.last_name }}</td>
+                                        <td>{{ d.department.dep_name }}</td>
+                                        <td>{{ d.today_count}}</td>
+                                        <td>{{ d.remaining_slots }}</td>
+                                    </tr>
+                                    {% endfor %}
+
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">
+                                            Select Department and Doctor to view details
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+
+                                </table>
+
+                                </div>
+                            </div>
+
+                        </form>
+                        <div class="row justify-content-center  gx-2 gy-2 gy-xl-0 gx-xl-4 pt-3 mt-4">
+                            <div class="col-md-4">
+                                <div class="dashboard-card bg-info text-light h-100">
+                                    <div class="d-flex flex-column align-items-center py-4  ">
+                                        <h3 class="text-center fw-bold">Pending Appointments</h3>
+                                        <h5 class="text-center display-5 fw-bold">{{pending_appointments}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="dashboard-card bg-warning text-light h-100">
+                                    <div class="d-flex flex-column align-items-center py-4 ">
+                                        <h3 class="text-center fw-bold">Completed Consultations</h3>
+                                        <h5 class="text-center display-5 fw-bold">{{completed_consultations}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                            <div class="col-md-4">
+                                <div class="dashboard-card bg-danger text-light h-100">
+                                    <div class="d-flex flex-column align-items-center py-4 ">
+                                        <h3 class="text-center fw-bold">Today Appointments</h3>
+                                        <h5 class="text-center display-5 fw-bold">{{today_appointments}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+{% endblock %}

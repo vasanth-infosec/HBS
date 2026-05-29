@@ -1,0 +1,41 @@
+ <nav class="navbar navbar-expand-lg fixed-top py-2 nav-bg ">
+        <div class="container-fluid d-flex flex-nowrap align-items-center">
+            <h5 class="navbar-brand logo fw-bold text-light" >MediCare</h5>
+           <button class="navbar-toggler border-0 shadow-none ms-auto w-auto " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end nav-bg" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header ">
+                    <h5 class="offcanvas-title text-white fw-bold" id="offcanvasNavbarLabel">MediCare</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'home' %}active nav-act fw-bold{% else %}text-light{% endif %}" aria-current="page"
+                                href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'about' %}active nav-act fw-bold{% else %}text-light{% endif %}" href="{% url 'about' %}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'patient' %}active nav-act fw-bold{% else %}text-light{% endif %}" href="{% url 'patient' %}">Paitent Registration</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'doctor' %}active nav-act fw-bold{% else %}text-light{% endif %}" href="{% url 'doctor' %}">Doctor Registration</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'login' %}active nav-act fw-bold{% else %}text-light{% endif %}" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-lg-2  {% if request.resolver_match.url_name == 'contact' %}active nav-act fw-bold{% else %}text-light{% endif %}" href="{% url 'contact' %}">Contact</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    

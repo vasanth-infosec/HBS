@@ -1,0 +1,66 @@
+{% extends 'doctor-base.html' %}
+
+{% block title %}
+Consultation Histroy
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="">
+        <div class="row justify-content-center">
+            <div class="col-xl-12">
+                <h2 class="text-center">Appointments Histroy</h2>
+
+                
+                <div class="table-container">
+                    <table class="table table-light table-bordered text-center mt-5 align-middle">
+                        <tr class="table-dark">
+                            <th>S.No</th>
+                            <th>Appointment ID</th>
+                            <th>Patient ID</th>
+                            <th>Patient Name</th>
+                            <th>Patient Age</th>
+                            <th>Patient Gender</th>
+                            <th>Patient Phone No</th>
+                            <th>Symptoms</th>
+                            <th>Appointment Date</th>
+                            <th>Status</th>
+                        </tr>
+                        {% for data in datas %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{data.appointment_id}}</td>
+                            <td>{{data.patient.patient_id}}</td>
+                            <td>{{data.patient.admin.first_name}} {{data.patient.admin.last_name}}</td>
+                            <td>{{data.patient.patient_age}}</td>
+                            <td>{{data.patient.patient_gender}}</td>
+                            <td>{{data.patient.patient_phone}}</td>
+                            <td>{{data.symptoms}}</td>
+                            <td>{{data.appointment_date}}</td>
+                            <td>
+                                {% if data.consultation_status == 'CONSULATED' %}
+                                    <span class="badge bg-success text-light">Consulted</span>
+                                {% else %}
+                                    <span class="badge bg-danger text-light">Not Consulted</span>
+                                {% endif %}
+                            </td>
+
+                        </tr>
+                          {% empty %}
+                    <div class="alert alert-warning text-center">
+                        No Appointment Histroy
+                    </div>
+                {% endfor %}
+                    </table>
+                  
+                </div>
+                
+                
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
